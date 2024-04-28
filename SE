@@ -1,7 +1,13 @@
 def create_account(username, password):
   """Creates a new user account in the database."""
   # Hash the password for security (use a strong hashing algorithm like bcrypt)
-  hashed_password = hash_password(password)  # Replace with actual hashing function
+  import bcrypt
+
+def hash_password(password):
+    """Hashes a password using bcrypt."""
+    salt = bcrypt.gensalt()  # Generate a random salt
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password.decode('utf-8')
 
   conn = sqlite3.connect('user_data.db')
   cursor = conn.cursor()
